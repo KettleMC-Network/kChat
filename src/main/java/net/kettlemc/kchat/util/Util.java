@@ -1,5 +1,8 @@
 package net.kettlemc.kchat.util;
 
+import net.kyori.adventure.platform.bukkit.BukkitComponentSerializer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
@@ -35,5 +38,16 @@ public class Util {
             return null;
         }
         return user.getCachedData().getMetaData().getSuffix();
+    }
+
+    /**
+     * Convert a MiniMessage string to a legacy string.
+     *
+     * @param miniMessage The MiniMessage string to convert.
+     * @return The legacy string.
+     */
+    public static String miniMessageToLegacy(String miniMessage) {
+        Component message = MiniMessage.miniMessage().deserialize(miniMessage);
+        return BukkitComponentSerializer.legacy().serialize(message);
     }
 }

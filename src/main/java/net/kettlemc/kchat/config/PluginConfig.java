@@ -15,7 +15,7 @@ public class PluginConfig {
     private static final Config CONFIG = HoconConfig.of(CONFIG_PATH.toFile(), "Config for example values");
 
     public static final StringConfigEntry CHAT_FORMAT = StringConfigEntry.of(CONFIG, "chat.format", "The chat format to use.", "%prefix% &8| &7%s &8» &r%s");
-    public static final BooleanConfigEntry USE_MINIMESSAGES = BooleanConfigEntry.of(CONFIG, "chat.minimessages", "Whether or not to use MiniMessage in chat.", false);
+    public static final BooleanConfigEntry USE_MINI_MESSAGES = BooleanConfigEntry.of(CONFIG, "chat.minimessages", "Whether or not to use MiniMessage in chat.", false);
     public static final StringConfigEntry DEFAULT_PREFIX = StringConfigEntry.of(CONFIG, "chat.default.prefix", "The default prefix to use", "&7Player");
     public static final StringConfigEntry DEFAULT_SUFFIX = StringConfigEntry.of(CONFIG, "chat.default.suffix", "The default suffix to use", "&7Player");
 

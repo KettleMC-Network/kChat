@@ -2,6 +2,7 @@ package net.kettlemc.kchat.listener;
 
 import net.kettlemc.kchat.config.PluginConfig;
 import net.kettlemc.kchat.util.Util;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -19,6 +20,12 @@ public class ChatListener implements Listener {
         String format = PluginConfig.CHAT_FORMAT.getValue()
                 .replace("%prefix%", prefix == null ? PluginConfig.DEFAULT_PREFIX.getValue() : prefix)
                 .replace("%suffix%", suffix == null ? PluginConfig.DEFAULT_SUFFIX.getValue() : suffix);
+
+        if (PluginConfig.USE_MINI_MESSAGES.getValue()) {
+            format = Util.miniMessageToLegacy(format);
+        } else {
+            format = ChatColor.translateAlternateColorCodes('&', format);
+        }
 
         event.setFormat(format);
     }
