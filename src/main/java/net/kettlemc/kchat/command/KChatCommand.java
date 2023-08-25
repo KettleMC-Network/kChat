@@ -2,8 +2,10 @@ package net.kettlemc.kchat.command;
 
 import com.google.common.collect.ImmutableList;
 import net.kettlemc.kchat.config.PluginConfig;
-import net.kettlemc.kchat.util.Util;
-import org.bukkit.command.*;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.util.StringUtil;
 
 import java.util.ArrayList;
@@ -17,14 +19,18 @@ public class KChatCommand implements TabExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
-                sender.sendMessage(Util.miniMessageToLegacy("<gray>Reloading config...</gray>"));
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Reloading config..."));
                 PluginConfig.unload();
-                PluginConfig.load();
+                if (PluginConfig.load()) {
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aReloaded config..."));
+                } else {
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cFailed to reload config!"));
+                }
                 return true;
             }
         }
 
-        sender.sendMessage(Util.miniMessageToLegacy("<gray>/kchat reload</gray>"));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7/kchat reload"));
         return true;
     }
 
