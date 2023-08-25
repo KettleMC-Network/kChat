@@ -1,4 +1,4 @@
-package net.kettlemc.example;
+package net.kettlemc.kchat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;

@@ -1,6 +1,7 @@
-package net.kettlemc.example;
+package net.kettlemc.kchat;
 
-import net.kettlemc.example.config.PluginConfig;
+import net.kettlemc.kchat.config.PluginConfig;
+import net.kettlemc.kchat.listener.ChatListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Plugin extends JavaPlugin {
@@ -9,15 +10,17 @@ public final class Plugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().info("Hello, World!");
+        getLogger().info("Loading config for " + this.getName() + "...");
         if (!PluginConfig.load()) {
             getLogger().severe("Failed to load config!");
         }
+        getLogger().info("Registering listeners...");
+        contentManager.registerListener(new ChatListener());
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("Goodbye, World!");
+        getLogger().info("Disabling " + this.getName() + " and closing config...");
         PluginConfig.unload();
     }
 
