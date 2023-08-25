@@ -1,5 +1,6 @@
 package net.kettlemc.kchat;
 
+import net.kettlemc.kchat.command.KChatCommand;
 import net.kettlemc.kchat.config.PluginConfig;
 import net.kettlemc.kchat.listener.ChatListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,8 +15,12 @@ public final class Plugin extends JavaPlugin {
         if (!PluginConfig.load()) {
             getLogger().severe("Failed to load config!");
         }
+
         getLogger().info("Registering listeners...");
         contentManager.registerListener(new ChatListener());
+
+        getLogger().info("Registering commands...");
+        contentManager.registerCommand("kchat", new KChatCommand());
     }
 
     @Override

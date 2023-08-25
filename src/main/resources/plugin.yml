@@ -5,3 +5,10 @@ author: ${author}
 description: ${description}
 api-version: ${apiversion}
 website: ${website}
+
+commands:
+  kchat:
+    description: Main commmand for kChat
+    usage: /kchat reload
+    aliases: [kchat, kc]
+    permission: system.chat.reload
