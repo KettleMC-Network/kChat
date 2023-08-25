@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 
 public class PluginConfig {
 
-    private static final Path CONFIG_PATH = Paths.get("plugins", "Plugin", "config.conf");
+    private static final Path CONFIG_PATH = Paths.get("plugins", "kChat", "config.conf");
     private static final Config CONFIG = HoconConfig.of(CONFIG_PATH.toFile(), "Config for example values");
 
     public static final StringConfigEntry CHAT_FORMAT = StringConfigEntry.of(CONFIG, "chat.format", "The chat format to use.", "%prefix% &8| &7%s &8» &r%s");
