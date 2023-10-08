@@ -1,0 +1,11 @@
+{
+  "prefix": "<blue>kChat</blue> <dark_gray>»</dark_gray> ",
+  "no-permission": "<gray>You're not allowed to use this command.</gray>",
+  "command": {
+    "reload": {
+      "success": "<gray>Plugin reloaded.</gray>",
+      "fail": "<gray>Plugin failed to reload.</gray>"
+    },
+    "usage": "<gray>/kchat reload</gray>"
+  }
+}

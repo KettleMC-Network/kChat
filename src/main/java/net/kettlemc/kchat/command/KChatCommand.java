@@ -1,8 +1,9 @@
 package net.kettlemc.kchat.command;
 
 import com.google.common.collect.ImmutableList;
+import net.kettlemc.kchat.KChat;
 import net.kettlemc.kchat.config.Configuration;
-import org.bukkit.ChatColor;
+import net.kettlemc.kchat.config.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -17,20 +18,24 @@ public class KChatCommand implements TabExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (sender.hasPermission("kchat.command")) {
+            KChat.instance().sendMessage(sender, Messages.NO_PERMISSION);
+            return true;
+        }
+
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Reloading config..."));
+                KChat.instance().sendMessage(sender, Messages.RELOADING);
                 Configuration.unload();
                 if (Configuration.load()) {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aReloaded config..."));
+                    KChat.instance().sendMessage(sender, Messages.RELOADED);
                 } else {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cFailed to reload config!"));
+                    KChat.instance().sendMessage(sender, Messages.RELOAD_FAILED);
                 }
                 return true;
             }
         }
-
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7/kchat reload"));
+        KChat.instance().sendMessage(sender, Messages.USAGE);
         return true;
     }
 

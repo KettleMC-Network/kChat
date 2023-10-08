@@ -19,7 +19,6 @@ public class Configuration {
     public static final StringConfigEntry DEFAULT_PREFIX = StringConfigEntry.of(CONFIG, "chat.default.prefix", "The default prefix to use", "&7Player");
     public static final StringConfigEntry DEFAULT_SUFFIX = StringConfigEntry.of(CONFIG, "chat.default.suffix", "The default suffix to use", "&7Player");
 
-
     private Configuration() {
     }
 
