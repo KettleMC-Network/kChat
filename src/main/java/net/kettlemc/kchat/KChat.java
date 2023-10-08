@@ -1,18 +1,19 @@
 package net.kettlemc.kchat;
 
 import net.kettlemc.kchat.command.KChatCommand;
-import net.kettlemc.kchat.config.PluginConfig;
+import net.kettlemc.kchat.config.Configuration;
 import net.kettlemc.kchat.listener.ChatListener;
+import net.kettlemc.kcommon.bukkit.ContentManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Plugin extends JavaPlugin {
+public final class KChat extends JavaPlugin {
 
     private final ContentManager contentManager = new ContentManager(this);
 
     @Override
     public void onEnable() {
         getLogger().info("Loading config for " + this.getName() + "...");
-        if (!PluginConfig.load()) {
+        if (!Configuration.load()) {
             getLogger().severe("Failed to load config!");
         }
 
@@ -26,7 +27,7 @@ public final class Plugin extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("Disabling " + this.getName() + " and closing config...");
-        PluginConfig.unload();
+        Configuration.unload();
     }
 
 }

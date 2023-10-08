@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class PluginConfig {
+public class Configuration {
 
     private static final Path CONFIG_PATH = Paths.get("plugins", "kChat", "config.conf");
     private static final Config CONFIG = HoconConfig.of(CONFIG_PATH.toFile(), "Config for example values");
@@ -20,7 +20,7 @@ public class PluginConfig {
     public static final StringConfigEntry DEFAULT_SUFFIX = StringConfigEntry.of(CONFIG, "chat.default.suffix", "The default suffix to use", "&7Player");
 
 
-    private PluginConfig() {
+    private Configuration() {
     }
 
     public static boolean load() {

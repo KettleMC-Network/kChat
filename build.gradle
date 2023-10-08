@@ -5,22 +5,17 @@ plugins {
     id "java"
 }
 
-// Use repositories from "repositories.gradle"
-if (file("repositories.gradle").exists()) {
-    apply from: "repositories.gradle"
-}
-// Use dependencies from "dependencies.gradle"
-if (file("dependencies.gradle").exists()) {
-    apply from: "dependencies.gradle"
-}
-
 
 java {
     sourceCompatibility = getVersionForMajor(javaSourceVersion)
     targetCompatibility = getVersionForMajor(javaTargetVersion)
 
-    withSourcesJar()
-    withJavadocJar()
+    if (generateSourcesJar) {
+        withSourcesJar()
+    }
+    if (generateJavadocJar) {
+        withJavadocJar()
+    }
 }
 
 configurations {
@@ -32,6 +27,7 @@ jar {
     from {
         configurations.internal.collect { it.isDirectory() ? it : zipTree(it) }
     }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 compileJava { options.encoding = "UTF-8" }
@@ -55,6 +51,18 @@ repositories {
         name = "sonatype-bungeecord"
         url = "https://oss.sonatype.org/content/repositories/snapshots"
     }
+    maven {
+        name "velocity"
+        url "https://nexus.velocitypowered.com/repository/maven-public/"
+    }
+    maven {
+        name = "sonatype-almighty-satan"
+        url = "https://s01.oss.sonatype.org/content/repositories/iogithubalmighty-satan-1010"
+    }
+    maven {
+        name = "kettlemc"
+        url = "https://repo.kettlemc.net/repository/maven-public/"
+    }
 }
 
 group projectGroup
@@ -64,14 +72,33 @@ if (spigotVersion) {
     dependencies {
         implementation "org.spigotmc:spigot-api:${spigotVersion}"
     }
-} else if (paperVersion) {
+}
+if (paperVersion) {
     dependencies {
         implementation "io.papermc.paper:paper-api:${paperVersion}"
     }
-} else if (paperLegacyVersion) {
+}
+if (paperLegacyVersion) {
     dependencies {
         implementation "com.destroystokyo.paper:paper-api:${paperLegacyVersion}"
     }
+}
+if (velocityVersion) {
+    dependencies {
+        implementation "com.velocitypowered:velocity-api:${velocityVersion}"
+        annotationProcessor "com.velocitypowered:velocity-api:${velocityVersion}"
+    }
+}
+if (bungeeVersion) {
+    dependencies {
+        implementation "net.md-5:bungeecord-api:${bungeeVersion}"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs/implementation", include: "*.jar")
+    internal fileTree(dir: "libs/internal", include: "*.jar")
+    compileOnly "org.jetbrains:annotations:24.0.1"
 }
 
 if (jasklVersion && jasklImplementation) {
@@ -84,6 +111,43 @@ if (jasklVersion && jasklImplementation) {
             implementation "io.github.almighty-satan.jaskl:jaskl-${jasklImplementation}:${jasklVersion}"
         }
     }
+}
+
+if (slamsVersion && (slamsParser || slamsImplementation) ) {
+    if (slamsShadow) {
+        dependencies {
+            internal "io.github.almighty-satan.slams:slams-parser-${slamsParser}:${slamsVersion}"
+            internal "io.github.almighty-satan.slams:slams-${slamsImplementation}:${slamsVersion}"
+        }
+    } else {
+        dependencies {
+            implementation "io.github.almighty-satan.slams:slams-parser-${slamsParser}:${slamsVersion}"
+            implementation "io.github.almighty-satan.slams:slams-${slamsImplementation}:${slamsVersion}"
+        }
+    }
+}
+
+if (klanguageVersion) {
+    dependencies {
+        implementation "net.kettlemc.klanguage:klanguage-core:${klanguageVersion}"
+        implementation "net.kettlemc.klanguage:klanguage-${klanguageImplementation}:${klanguageVersion}"
+    }
+}
+
+if (kcommonVersion) {
+    dependencies {
+        implementation "net.kettlemc:kcommon:${kcommonVersion}"
+    }
+}
+
+// Use repositories from "repositories.gradle"
+if (file("repositories.gradle").exists()) {
+    apply from: "repositories.gradle"
+}
+
+// Use dependencies from "dependencies.gradle"
+if (file("dependencies.gradle").exists()) {
+    apply from: "dependencies.gradle"
 }
 
 processResources {
@@ -102,9 +166,6 @@ processResources {
     )
 }
 
-
-static JavaVersion getVersionForMajor(String major) {
-    int version = Integer.parseInt(major)
-    JavaVersion[] javaVersions = JavaVersion.values()
-    return version >= javaVersions.size() ? JavaVersion.VERSION_HIGHER : javaVersions[version - 1]
+static JavaVersion getVersionForMajor(String version) {
+    return JavaVersion.values().find { (it.majorVersion == version) }
 }

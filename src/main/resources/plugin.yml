@@ -6,6 +6,9 @@ description: ${description}
 api-version: ${apiversion}
 website: ${website}
 
+depend:
+  - kCommon
+
 commands:
   kchat:
     description: Main commmand for kChat
