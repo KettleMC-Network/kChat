@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 public class Configuration {
 
     private static final Path CONFIG_PATH = Paths.get("plugins", "kChat", "config.conf");
-    private static final Config CONFIG = HoconConfig.of(CONFIG_PATH.toFile(), "Config for example values");
+    private static final Config CONFIG = HoconConfig.of(CONFIG_PATH.toFile(), "Config for kChat");
 
     public static final StringConfigEntry CHAT_FORMAT = StringConfigEntry.of(CONFIG, "chat.format", "The chat format to use.", "%prefix% &8| &7%s &8» &r%s");
     public static final BooleanConfigEntry USE_MINI_MESSAGES = BooleanConfigEntry.of(CONFIG, "chat.minimessages", "Whether or not to use MiniMessage in chat.", false);

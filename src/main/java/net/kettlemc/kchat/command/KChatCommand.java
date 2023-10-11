@@ -6,6 +6,7 @@ import net.kettlemc.kchat.config.Configuration;
 import net.kettlemc.kchat.config.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.util.StringUtil;
 
@@ -18,7 +19,7 @@ public class KChatCommand implements TabExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("kchat.command")) {
+        if (sender.hasPermission("kchat.command") || sender instanceof ConsoleCommandSender) {
             KChat.instance().sendMessage(sender, Messages.NO_PERMISSION);
             return true;
         }

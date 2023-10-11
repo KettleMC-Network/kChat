@@ -16,8 +16,8 @@ public class ChatListener implements Listener {
     public void onChat(AsyncPlayerChatEvent event) {
         if (event.isCancelled()) return;
 
-        String prefix = Util.luckPermsInstalled() ? LuckPermsUtil.getLuckPermsPrefix(event.getPlayer()) : null;
-        String suffix = Util.luckPermsInstalled() ? LuckPermsUtil.getLuckPermsSuffix(event.getPlayer()) : null;
+        String prefix = Util.luckPermsInstalled() ? LuckPermsUtil.getLuckPermsPrefix(Util.luckPerms(), event.getPlayer()) : null;
+        String suffix = Util.luckPermsInstalled() ? LuckPermsUtil.getLuckPermsSuffix(Util.luckPerms(), event.getPlayer()) : null;
 
         String format = Configuration.CHAT_FORMAT.getValue()
                 .replace("%prefix%", prefix == null ? Configuration.DEFAULT_PREFIX.getValue() : prefix)

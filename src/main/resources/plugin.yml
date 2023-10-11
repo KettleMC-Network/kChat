@@ -7,11 +7,12 @@ api-version: ${apiversion}
 website: ${website}
 
 depend:
-  - kCommon
+  - "kLoader"
+  - "LuckPerms"
 
 commands:
   kchat:
     description: Main commmand for kChat
     usage: /kchat reload
-    aliases: [kchat, kc]
+    aliases: [ kchat, kc ]
     permission: system.chat.reload

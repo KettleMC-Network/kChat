@@ -38,8 +38,8 @@ public class Messages {
         if (!LANGUAGE_PATH.toFile().exists())
             LANGUAGE_PATH.toFile().mkdirs();
         try {
-            FileUtil.saveResourceAsFile(Messages.class, "/lang/de.json", LANGUAGE_PATH.resolve("de.json"));
-            FileUtil.saveResourceAsFile(Messages.class, "/lang/en.json", LANGUAGE_PATH.resolve("en.json"));
+            FileUtil.saveResourceAsFile(Messages.class, "lang/de.json", LANGUAGE_PATH.resolve("de.json"));
+            FileUtil.saveResourceAsFile(Messages.class, "lang/en.json", LANGUAGE_PATH.resolve("en.json"));
             loadFromFilesInDirectory(LANGUAGE_PATH.toFile());
             return true;
         } catch (IOException e) {
@@ -58,7 +58,7 @@ public class Messages {
         for (File file : Objects.requireNonNull(LANGUAGE_PATH.toFile().listFiles())) {
             if (file.isDirectory()) loadFromFilesInDirectory(file);
             else if (file.getName().endsWith(".json"))
-                LANGUAGE_MANAGER.load(DEFAULT_LANGUAGE, JacksonParser.createJsonParser(file));
+                LANGUAGE_MANAGER.load(file.getName().replace(".json", ""), JacksonParser.createJsonParser(file));
         }
     }
 

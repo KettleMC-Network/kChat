@@ -5,6 +5,7 @@ import net.kettlemc.kchat.command.KChatCommand;
 import net.kettlemc.kchat.config.Configuration;
 import net.kettlemc.kchat.config.Messages;
 import net.kettlemc.kchat.listener.ChatListener;
+import net.kettlemc.kchat.loading.Loadable;
 import net.kettlemc.kcommon.bukkit.ContentManager;
 import net.kettlemc.klanguage.api.LanguageAPI;
 import net.kettlemc.klanguage.bukkit.BukkitLanguageAPI;
@@ -12,15 +13,23 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class KChat extends JavaPlugin {
+public final class KChat implements Loadable {
 
-    private final ContentManager contentManager = new ContentManager(this);
     private static KChat instance;
+    public static final LanguageAPI<Player> LANGUAGE_API = BukkitLanguageAPI.of();
+
+    private final JavaPlugin plugin;
+    private final ContentManager contentManager;
     private BukkitAudiences adventure;
 
-    public static final LanguageAPI<Player> LANGUAGE_API = BukkitLanguageAPI.of();
+
+    public KChat(JavaPlugin plugin) {
+        this.plugin = plugin;
+        this.contentManager = new ContentManager(plugin);
+    }
 
     public static KChat instance() {
         return instance;
@@ -38,29 +47,29 @@ public final class KChat extends JavaPlugin {
 
         instance = this;
 
-        getLogger().info("Loading config for " + this.getName() + "...");
+        plugin.getLogger().info("Loading config for " + plugin.getName() + "...");
         if (!Configuration.load()) {
-            getLogger().severe("Failed to load config!");
+            plugin.getLogger().severe("Failed to load config!");
         }
 
-        getLogger().info("Loading messages for " + this.getName() + "...");
+        plugin.getLogger().info("Loading messages for " + plugin.getName() + "...");
         if (!Messages.load()) {
-            getLogger().severe("Failed to load messages!");
+            plugin.getLogger().severe("Failed to load messages!");
         }
 
-        getLogger().info("Loading adventure support...");
-        this.adventure = BukkitAudiences.create(this);
+        plugin.getLogger().info("Loading adventure support...");
+        this.adventure = BukkitAudiences.create(plugin);
 
-        getLogger().info("Registering listeners...");
+        plugin.getLogger().info("Registering listeners...");
         contentManager.registerListener(new ChatListener());
 
-        getLogger().info("Registering commands...");
+        plugin.getLogger().info("Registering commands...");
         contentManager.registerCommand("kchat", new KChatCommand());
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("Disabling " + this.getName() + " and closing config...");
+        plugin.getLogger().info("Disabling " + plugin.getName() + " and closing config...");
         Configuration.unload();
     }
 
@@ -74,4 +83,7 @@ public final class KChat extends JavaPlugin {
         audience.sendMessage(Messages.PREFIX.value().append(message.value()));
     }
 
+    public Plugin getPlugin() {
+        return plugin;
+    }
 }

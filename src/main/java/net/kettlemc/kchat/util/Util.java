@@ -1,5 +1,7 @@
 package net.kettlemc.kchat.util;
 
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 
 public class Util {
@@ -15,6 +17,10 @@ public class Util {
 
     public static boolean luckPermsInstalled() {
         return Bukkit.getPluginManager().getPlugin("LuckPerms") != null;
+    }
+
+    public static LuckPerms luckPerms() {
+        return LuckPermsProvider.get();
     }
 
 }
