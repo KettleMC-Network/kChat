@@ -3,6 +3,7 @@
   "command": {
     "no-permission": "<gray>You're not allowed to use this command.</gray>",
     "reload": {
+      "reloading": "<gray>Reloading plugin...</gray>",
       "success": "<gray>Plugin reloaded.</gray>",
       "fail": "<gray>Plugin failed to reload.</gray>"
     },
