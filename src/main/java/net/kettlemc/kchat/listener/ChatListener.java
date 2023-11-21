@@ -2,7 +2,7 @@ package net.kettlemc.kchat.listener;
 
 import net.kettlemc.kchat.config.Configuration;
 import net.kettlemc.kchat.util.Util;
-import net.kettlemc.kcommon.adventure.AdventureUtil;
+import net.kettlemc.kcommon.language.AdventureUtil;
 import net.kettlemc.kcommon.luckperms.LuckPermsUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
