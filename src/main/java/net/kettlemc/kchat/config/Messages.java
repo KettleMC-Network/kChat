@@ -22,7 +22,7 @@ public class Messages {
     public static final AdventureMessage PREFIX = AdventureMessage.of("prefix", LANGUAGE_MANAGER);
     public static final AdventureMessage RELOADING = AdventureMessage.of("command.reload.reloading", LANGUAGE_MANAGER);
     public static final AdventureMessage RELOADED = AdventureMessage.of("command.reload.successful", LANGUAGE_MANAGER);
-    public static final AdventureMessage RELOAD_FAILED = AdventureMessage.of("command.reloaded.failed", LANGUAGE_MANAGER);
+    public static final AdventureMessage RELOAD_FAILED = AdventureMessage.of("command.reload.failed", LANGUAGE_MANAGER);
     public static final AdventureMessage NO_PERMISSION = AdventureMessage.of("command.no-permission", LANGUAGE_MANAGER);
     public static final AdventureMessage USAGE = AdventureMessage.of("command.usage", LANGUAGE_MANAGER);
 

@@ -5,7 +5,7 @@
     "reload": {
       "reloading": "<gray>Reloading plugin...</gray>",
       "success": "<gray>Plugin reloaded.</gray>",
-      "fail": "<gray>Plugin failed to reload.</gray>"
+      "failed": "<gray>Plugin failed to reload.</gray>"
     },
     "usage": "<gray>/kchat reload</gray>"
   }
